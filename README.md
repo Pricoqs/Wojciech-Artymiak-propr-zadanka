@@ -1,1 +1,1 @@
-# Wojciech-Artymiak-propr-zadanka
+Wojciech Artymiak
