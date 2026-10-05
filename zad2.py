@@ -4,18 +4,39 @@ początku kod zawiera powtarzające się fragmenty obliczeń dla każdego środk
 zadaniem jest usunięcie zbędnych powtórzeń, tak aby kod był bardziej zwięzły i łatwiejszy do utrzymania.
 """
 
-typ = input(
-    "Wpisz nazwe srodka transportu z jakiego chcesz przeliczyc ceny (autobus/pociąg/samolot)"
+from enum import Enum
+
+
+class NazwaSrodkaTransportu(Enum):
+    autobus = 0
+    pociag = 1
+    samolot = 2
+
+
+typyPojazdow = {
+    NazwaSrodkaTransportu.autobus: 1.5,
+    NazwaSrodkaTransportu.pociag: 3,
+    NazwaSrodkaTransportu.samolot: 10,
+}
+
+
+def przeliczanieCenBiletow(
+    nazwaSrodkaTransportu: NazwaSrodkaTransportu, iloscKilometrow: float
+) -> float:
+    return iloscKilometrow * typyPojazdow[nazwaSrodkaTransportu]
+
+
+nazwa = input(
+    "Wpisz nazwe srodka transportu na podstawie jakiego jakiego chcesz przeliczyc ceny biletow (autobus/pociąg/samolot): "
 )
-cena = float(input("Podaj cene srodka transportu"))
+nazwaSrodkaTransportu = NazwaSrodkaTransportu[nazwa]
 
-if typ == "autobus":
-    cena = cena * 1.5
-elif typ == "pociąg":
-    cena = cena * 3
-elif typ == "samolot":
-    cena = cena * 10
-else:
-    print(f"ERROR: brak typu srodka transportu {typ}")
+iloscKilometrow = float(
+    input(
+        "Ile kilometrow przemierzysz przemieszczajac sie podanym srodkiem transportu: "
+    )
+)
 
-print(f"Przeliczona cena wynosi: {cena}")
+print(
+    f"Przeliczona cena wynosi: {przeliczanieCenBiletow(nazwaSrodkaTransportu, iloscKilometrow)}"
+)
